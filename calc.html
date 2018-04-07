@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Calculadora</title>
+	<style type="text/css">
+		.display{
+			font-size: 30px;
+			font-weight: bold;
+			width: 254px;
+			background-color: gray;
+			text-align: right;
+		}
+		.boton{
+			width: 40px;
+			/*text-align: center;*/
+			font-weight: bold;
+		}
+		.igual{
+			width: 66px;
+		}
+	</style>
+	<script type="text/javascript" src="calc.js"></script>
+</head>
+<body>
+<div>
+<table>
+	<tr><td colspan="6"><input type="text" readonly id="Display" class="display">
+	<tr>
+		<td><input type="button" value="9" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="8" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="7" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="*" class="boton" onclick="PutOperator(this)">
+		<td><input type="button" value="MS" class="boton" onclick="Mem=document.getElementById('Display').value;">
+		<td><input type="button" value="MR" class="boton" onclick="document.getElementById('Display').value=Mem;">
+	<tr>
+		<td><input type="button" value="6" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="5" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="4" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="/" class="boton" onclick="PutOperator(this)">
+		<td><input type="button" value="M+" class="boton" onclick="Mem=parseFloat(Mem)+parseFloat(document.getElementById('Display').value);">
+		<td><input type="button" value="C" class="boton" onclick="Reset();">
+	<tr>
+		<td><input type="button" value="3" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="2" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="1" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="+" class="boton" onclick="PutOperator(this)">
+		<td><input type="button" value="MC" class="boton" onclick="Mem=0;">
+		<td><input type="button" value="CE" class="boton" onclick="document.getElementById('Display').value='';">
+	<tr>
+		<td><input type="button" value="0" class="boton" onclick="PutNumber(this.value)">
+		<td><input type="button" value="." class="boton" onclick="Dot()">
+		<td><input type="button" value="+/-" class="boton" onclick="Inverse()">
+		<td><input type="button" value="-" class="boton" onclick="PutOperator(this)">
+		<td colspan="2"><input type="button" value="=" class="boton igual" onclick="Calculate()">
+</table>
+</div>
+</body>
+</html>

@@ -115,6 +115,12 @@ function ClearError() {
     }
 }
 
+function MemoryStorage() {
+    let arrayValues = display.value.split(/[+/*-]/g);
+    let arrayLength = arrayValues.length;
+    Mem = arrayValues[arrayLength - 1];
+}
+
 function joinArrays(array1, array2, callback) {
     let newArray = [];
     for (let key = 0; key < array1.length; key++) {
@@ -126,6 +132,7 @@ function joinArrays(array1, array2, callback) {
 function Calculate() {
     let operation = display.value.replace(/[eg()]/g, '').replace(/[n]/g, '-');
     display.value = eval(operation);
+    return eval(operation);
 }
 
 function initCalculator() {

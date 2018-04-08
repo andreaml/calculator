@@ -56,6 +56,43 @@ function Dot() {
     });
 }
 
+function Inverse() {
+    checkLastOperator(display, function(isOperator) {
+        if (!isOperator) {
+            let arrayValues = display.value.split(/[+/*-]/g);
+            if (arrayValues.length > 1) {
+                inverseLastArrayIndex(arrayValues, display);
+            } else {
+                inverseString(display.value, display);
+            }
+        }
+    });
+}
+
+function inverseLastArrayIndex(arrayValues, element) {
+    let arrayLength = arrayValues.length;
+    let arrayOperators = element.value.replace(/[0-9.neg()]/g, '').split('');
+    arrayOperators.push('');
+    if (arrayValues[arrayLength - 1].indexOf('neg') > -1) {
+        arrayValues[arrayLength - 1] = arrayValues[arrayLength - 1].replace(/[neg()]/g, '');            
+    } else {
+        arrayValues[arrayLength - 1] = `neg(${arrayValues[arrayLength - 1]})`;
+    }
+    joinArrays(arrayOperators, arrayValues, function(newArray) {
+        element.value = newArray.join('');
+    });
+}
+
+function inverseString(stringValue, element) {
+    if (stringValue !== '0') {
+        if (stringValue.indexOf('neg') > -1) {
+            element.value = stringValue.replace(/[neg()]/g, '');
+        } else {
+            element.value = `neg(${stringValue})`;   
+        }     
+    }  
+}
+
 function Reset() {
     NN=true;
     Op="";
@@ -68,16 +105,22 @@ function ClearError() {
     let arrayValues = display.value.split(/[+/*-]/g);
     let arrayOperators = display.value.replace(/[0-9.]/g, '').split('');
     let arrayLength = arrayValues.length;
-    let newArray = [];
     if (arrayLength > 1) {
         arrayValues[arrayLength - 1] = '';
+        joinArrays(arrayOperators, arrayValues, function(newArray) {
+            display.value = newArray.join('');
+        });
     } else {
-        arrayValues[arrayLength - 1] = 0;        
+        display.value = 0;        
     }
-    for (let key = 0; key < arrayOperators.length; key++) {
-        newArray.push(arrayValues[key], arrayOperators[key])
+}
+
+function joinArrays(array1, array2, callback) {
+    let newArray = [];
+    for (let key = 0; key < array1.length; key++) {
+        newArray.push(array2[key], array1[key]);
     }
-    display.value = newArray.join('');
+    callback(newArray);
 }
 
 function initCalculator() {

@@ -35,7 +35,7 @@ function checkDotExistence(element, callback) {
 }
 
 function PutNumber(number) {
-        concatValue(number, display);
+    concatValue(number, display);
 }
 
 function PutOperator(operator) {
@@ -102,23 +102,38 @@ function Reset() {
 }
 
 function ClearError() {
-    let arrayValues = display.value.split(/[+/*-]/g);
-    let arrayOperators = display.value.replace(/[0-9.neg()]/g, '').split('');
-    let arrayLength = arrayValues.length;
-    if (arrayLength > 1) {
-        arrayValues[arrayLength - 1] = '';
-        joinArrays(arrayOperators, arrayValues, function(newArray) {
-            display.value = newArray.join('');
-        });
-    } else {
-        display.value = 0;        
-    }
+    replaceLastNumber('', display);
 }
 
 function MemoryStorage() {
     let arrayValues = display.value.split(/[+/*-]/g);
     let arrayLength = arrayValues.length;
     Mem = arrayValues[arrayLength - 1];
+}
+
+function MemoryRecall() {
+    checkLastOperator(display, function(hasOperator) {
+        if (hasOperator) {
+            PutNumber(Mem);
+        } else {
+            replaceLastNumber(Mem, display);
+        }
+    });
+}
+
+function replaceLastNumber(newValue, element) {
+    let arrayValues = element.value.split(/[+/*-]/g);
+    let arrayOperators = element.value.replace(/[0-9.neg()]/g, '').split('');
+    arrayOperators.push('');
+    let arrayLength = arrayValues.length;
+    if (arrayLength > 1) {
+        arrayValues[arrayLength - 1] = newValue;
+        joinArrays(arrayOperators, arrayValues, function(newArray) {
+            element.value = newArray.join('');
+        });
+    } else {
+        element.value = (newValue === '') ? 0 : newValue;        
+    }
 }
 
 function joinArrays(array1, array2, callback) {

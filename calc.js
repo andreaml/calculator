@@ -1,6 +1,3 @@
-var NN=true;
-var Op="";
-var Num=0.0;
 var Mem=0.0;
 var display; 
 
@@ -103,9 +100,6 @@ function inverseString(stringValue, element) {
 }
 
 function Reset() {
-    NN=true;
-    Op="";
-    Num=0.0;
     Mem=0.0;
     display.value = 0;
 }

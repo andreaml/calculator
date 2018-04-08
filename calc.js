@@ -27,16 +27,35 @@ function replaceLastOperator(newValue, element) {
     element.value = arrayValues.join('');
 }
 
+function checkDotExistence(element, callback) {
+    let arrayValues = element.value.split(/[+/*-]/g);
+    let arrayLength = arrayValues.length;
+    let dotExists = arrayValues[arrayLength - 1].indexOf('.') > -1;
+    callback(!dotExists);
+}
+
 function PutNumber(number) {
-    concatValue(number, display);
+        concatValue(number, display);
 }
 
 function PutOperator(operator) {
     checkLastOperator(display, function(validToReplace) {
         if (validToReplace) {
             replaceLastOperator(operator, display);
-        } else {
+        } else if (!display.value.endsWith('.')){
             concatValue(operator, display);
+        }
+    });
+}
+
+function Dot() {
+    checkLastOperator(display, function(invalidToConcatDot) {
+        if (!invalidToConcatDot) {
+            checkDotExistence(display, function(validToConcatDot) {
+                if (validToConcatDot) {
+                    concatValue('.', display);
+                }
+            });
         }
     });
 }

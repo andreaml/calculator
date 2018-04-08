@@ -35,7 +35,16 @@ function checkDotExistence(element, callback) {
 }
 
 function PutNumber(number) {
-    concatValue(number, display);
+    if (display.value === "0") {
+        replaceLastNumber(number, display)
+    } else {
+        if (display.value.endsWith(')')) {
+            display.value = display.value.substring(0, display.value.length - 1)
+            concatValue(`${number})`, display);
+        } else {
+            concatValue(number, display);
+        }
+    }
 }
 
 function PutOperator(operator) {
@@ -121,8 +130,22 @@ function MemoryRecall() {
     });
 }
 
+function MemoryAdd() {
+    checkLastOperator(display, function(hasOperator) {
+        if (!hasOperator) {
+            let arrayValues = display.value.split(/[+/*-]/g);
+            let arrayLength = arrayValues.length;
+            newValue = arrayValues[arrayLength - 1];
+            Calculate(`${Mem} + ${newValue}`, function(result) {
+                Mem = result;
+            });
+        }
+    });
+}
+
 function replaceLastNumber(newValue, element) {
     let arrayValues = element.value.split(/[+/*-]/g);
+    arrayValues.splice('', 1);
     let arrayOperators = element.value.replace(/[0-9.neg()]/g, '').split('');
     arrayOperators.push('');
     let arrayLength = arrayValues.length;
@@ -144,10 +167,15 @@ function joinArrays(array1, array2, callback) {
     callback(newArray);
 }
 
-function Calculate() {
-    let operation = display.value.replace(/[eg()]/g, '').replace(/[n]/g, '-');
-    display.value = eval(operation);
-    return eval(operation);
+function Calculate(stringOperation, callback) {
+    let operation = stringOperation.replace(/[eg()]/g, '').replace(/[n]/g, '-').replace(/(\-\-)/g, '+').replace(/(\+0)/g, '+').replace(/(\-0)/g, '-').replace(/(\*0)/g, '*').replace(/(\/0)/g, '/');
+    callback(eval(operation));
+}
+
+function PrintResult(element) {
+    Calculate(element.value, function(result) {
+        element.value = result;
+    })
 }
 
 function initCalculator() {

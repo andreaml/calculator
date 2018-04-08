@@ -19,7 +19,7 @@
 			font-weight: bold;
 		}
 		.igual{
-			width: 66px;
+			width: 84px;
 		}
 	</style>
 </head>
@@ -39,7 +39,7 @@
 		<td><input type="button" value="5" class="boton" onclick="PutNumber(this.value)">
 		<td><input type="button" value="4" class="boton" onclick="PutNumber(this.value)">
 		<td><input type="button" value="/" class="boton" onclick="PutOperator(this.value)">
-		<td><input type="button" value="M+" class="boton" onclick="Mem=parseFloat(Mem)+parseFloat(document.getElementById('Display').value);">
+		<td><input type="button" value="M+" class="boton" onclick="MemoryAdd()">
 		<td><input type="button" value="C" class="boton" onclick="Reset();">
 	<tr>
 		<td><input type="button" value="3" class="boton" onclick="PutNumber(this.value)">
@@ -53,7 +53,7 @@
 		<td><input type="button" value="." class="boton" onclick="Dot()">
 		<td><input type="button" value="+/-" class="boton" onclick="Inverse()">
 		<td><input type="button" value="-" class="boton" onclick="PutOperator(this.value)">
-		<td colspan="2"><input type="button" value="=" class="boton igual" onclick="Calculate()">
+		<td colspan="2"><input type="button" value="=" class="boton igual" onclick="PrintResult(display)">
 </table>
 </div>
 <script type="text/javascript" src="calc.js"></script>

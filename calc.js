@@ -64,6 +64,22 @@ function Reset() {
     display.value = 0;
 }
 
+function ClearError() {
+    let arrayValues = display.value.split(/[+/*-]/g);
+    let arrayOperators = display.value.replace(/[0-9.]/g, '').split('');
+    let arrayLength = arrayValues.length;
+    let newArray = [];
+    if (arrayLength > 1) {
+        arrayValues[arrayLength - 1] = '';
+    } else {
+        arrayValues[arrayLength - 1] = 0;        
+    }
+    for (let key = 0; key < arrayOperators.length; key++) {
+        newArray.push(arrayValues[key], arrayOperators[key])
+    }
+    display.value = newArray.join('');
+}
+
 function initCalculator() {
     display = document.getElementById("Display");
     Reset();

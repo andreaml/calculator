@@ -54,10 +54,6 @@ function Dot() {
             concatValue('.', display);
         }
     });
-    // checkLastOperator(display, function(invalidToConcatDot) {
-    //     // if (!invalidToConcatDot) {
-    //     // }
-    // });
 }
 
 function Reset() {

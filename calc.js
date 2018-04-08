@@ -30,8 +30,8 @@ function replaceLastOperator(newValue, element) {
 function checkDotExistence(element, callback) {
     let arrayValues = element.value.split(/[+/*-]/g);
     let arrayLength = arrayValues.length;
-    let dotExists = arrayValues[arrayLength - 1].indexOf('.') > -1;
-    callback(!dotExists);
+    let hasDot = arrayValues[arrayLength - 1].indexOf('.') > -1;
+    callback(hasDot);
 }
 
 function PutNumber(number) {
@@ -39,8 +39,8 @@ function PutNumber(number) {
 }
 
 function PutOperator(operator) {
-    checkLastOperator(display, function(validToReplace) {
-        if (validToReplace) {
+    checkLastOperator(display, function(isOperator) {
+        if (isOperator) {
             replaceLastOperator(operator, display);
         } else if (!display.value.endsWith('.')){
             concatValue(operator, display);
@@ -49,15 +49,15 @@ function PutOperator(operator) {
 }
 
 function Dot() {
-    checkLastOperator(display, function(invalidToConcatDot) {
-        if (!invalidToConcatDot) {
-            checkDotExistence(display, function(validToConcatDot) {
-                if (validToConcatDot) {
-                    concatValue('.', display);
-                }
-            });
+    checkDotExistence(display, function(hasDot) {
+        if (!hasDot) {
+            concatValue('.', display);
         }
     });
+    // checkLastOperator(display, function(invalidToConcatDot) {
+    //     // if (!invalidToConcatDot) {
+    //     // }
+    // });
 }
 
 function Reset() {
@@ -65,7 +65,7 @@ function Reset() {
     Op="";
     Num=0.0;
     Mem=0.0;
-    display.value = '';
+    display.value = 0;
 }
 
 function initCalculator() {

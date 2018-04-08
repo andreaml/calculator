@@ -103,7 +103,7 @@ function Reset() {
 
 function ClearError() {
     let arrayValues = display.value.split(/[+/*-]/g);
-    let arrayOperators = display.value.replace(/[0-9.]/g, '').split('');
+    let arrayOperators = display.value.replace(/[0-9.neg()]/g, '').split('');
     let arrayLength = arrayValues.length;
     if (arrayLength > 1) {
         arrayValues[arrayLength - 1] = '';
@@ -121,6 +121,11 @@ function joinArrays(array1, array2, callback) {
         newArray.push(array2[key], array1[key]);
     }
     callback(newArray);
+}
+
+function Calculate() {
+    let operation = display.value.replace(/[eg()]/g, '').replace(/[n]/g, '-');
+    display.value = eval(operation);
 }
 
 function initCalculator() {

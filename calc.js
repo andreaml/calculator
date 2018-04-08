@@ -60,8 +60,17 @@ function Dot() {
     });
 }
 
+function Reset() {
+    NN=true;
+    Op="";
+    Num=0.0;
+    Mem=0.0;
+    display.value = '';
+}
+
 function initCalculator() {
     display = document.getElementById("Display");
+    Reset();
 }
 
 initCalculator();

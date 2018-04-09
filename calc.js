@@ -139,7 +139,9 @@ function MemoryAdd() {
 
 function replaceLastNumber(newValue, element) {
     let arrayValues = element.value.split(/[+/*-]/g);
-    arrayValues.splice('', 1);
+    arrayValues = arrayValues.filter(function(item) { 
+        return item !== '';
+    })
     let arrayOperators = element.value.replace(/[0-9.neg()]/g, '').split('');
     arrayOperators.push('');
     let arrayLength = arrayValues.length;
